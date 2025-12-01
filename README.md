@@ -1,7 +1,7 @@
 ### ForestSplats
 [WACV'26] ForestSplats: Deformable transient field for Gaussian Splatting in the Wild
 [[ArXiv](https://arxiv.org/abs/2503.06179)]   [[Project Page](https://kalelpark.github.io/ForestSplats/)]
+<img width="4200" height="2100" alt="ForestSplat_Poster_Size" src="https://github.com/user-attachments/assets/4f3cee5e-1452-4757-9ee6-7d5ca90d70e6" />
 
-![My Logo](https://private-user-images.githubusercontent.com/86551201/520744068-0504238a-b8ae-4a10-bfff-a4407f901f4a.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjQ1ODcwMjgsIm5iZiI6MTc2NDU4NjcyOCwicGF0aCI6Ii84NjU1MTIwMS81MjA3NDQwNjgtMDUwNDIzOGEtYjhhZS00YTEwLWJmZmYtYTQ0MDdmOTAxZjRhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMDElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjAxVDEwNTg0OFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTRlN2RkZWFmZWUyOWM0YWM0MDA4OGY0YWE5ZTg0MmU3N2RhMjI4ODQ4ODRlYjc3Yzk2ODcwMmVjNDhkNGIxZmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.Z01pjr0FLODqCu4czgvnDb_H5M6xoOIFfuXgwYOrC5U)
 
 The code of each component will be partially released until the WACV`26 Conference.
