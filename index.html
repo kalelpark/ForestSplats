@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>ForestSplats</title>
+    <link rel="icon" type="image/x-icon" href="static/img/icons/coconut-tree.png">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="ForestSplats: Deformable transient field for Gaussian Splatting in the Wild" />
+
+    <script src="./static/js/distill_template.v2.js"></script>
+
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+    <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+
+    <script defer="" src="./static/js/hider.js"></script>
+    <script src="./static/js/image_interact.js"></script>
+    <script src="./static/js/switch_videos.js"></script>
+    <!-- <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css"> -->
+
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+        integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+        integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js"
+        integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+    <!-- medium zoom https://github.com/francoischalifour/medium-zoom -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script> <!-- jquery -->
+    <script defer src="./static/js/medium-zoom.min.js"></script>
+    <script defer src="./static/js/zoom.js"></script>
+    <script src="./static/js/slider.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <!-- music player -->
+    <link rel="stylesheet" href="./static/css/music-player.css">
+    <script src="./static/js/music-player.js"></script>
+
+    <!-- new button -->
+    <link rel="stylesheet" href="./static/css/button.css">
+
+    <!-- text animation -->
+    <link rel="stylesheet" href="./static/css/text-animation.css">
+
+    <!-- scroll-bar -->
+    <link rel="stylesheet" href="./static/css/scroll-bar.css">
+    <script defer src="./static/js/scroll-bar.js"></script>
+
+    <!-- card -->
+    <link rel="stylesheet" href="./static/css/card.css">
+    <script defer src="./static/js/card.js"></script>
+
+    <!-- finding card -->
+    <link rel="stylesheet" href="./static/css/finding-card.css">
+    <link href="./static/css/twentytwenty.css" rel="stylesheet" type="text/css" />
+
+    <!-- author-affiliations -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/author-affiliations.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const gallery = document.querySelector('.gallery');
+            const dotsContainer = document.querySelector('.pagination-dots');
+            const items = gallery.children;
+            const itemsCount = items.length;
+
+            function createDots() {
+                for (let i = 0; i < itemsCount; i++) {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    if (i === 0) dot.classList.add('active');
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function updateDots() {
+                const dots = dotsContainer.children;
+                const scrollLeft = gallery.scrollLeft;
+                const itemWidth = gallery.scrollWidth / itemsCount;
+                const index = Math.round(scrollLeft / itemWidth);
+
+                for (let i = 0; i < dots.length; i++) {
+                    dots[i].classList.remove('active');
+                }
+                dots[index].classList.add('active');
+            }
+
+
+        });
+
+        function scrollGallery(galleryId, distance) {
+            const gallery = document.getElementById(galleryId);
+            gallery.scrollBy({
+                left: distance,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header-wrapper">
+        <div class="header-container" id="header-container">
+            <div class="header-content">
+                <div class="wrapper">
+                    <h1>ForestSplats</h1>
+                </div>
+                <h1 style="margin-top: 0px; color: #35bb49;">ForestSplats: Deformable transient field for Gaussian
+                    Splatting in the Wild</h1>
+                <p style="color: #4a4a4a">
+                    <em><strong style="color: #4a4a4a">Authors:</strong></em>
+                    <a href="https://github.com/kalelpark" class="author-link" target="_blank">Wongi Park, </a>
+                    <a href="https://github.com/nbril0313" class="author-link" target="_blank">Myeongseok Nam, </a>
+                    <a href="https://github.com/kimww42" class="author-link" target="_blank">Siwon Kim, </a>
+                    <a href="https://github.com/jasonjo97" class="author-link" target="_blank">Sangwoo Jo, </a>
+                    <a href="https://sites.google.com/site/cvsmlee/team/professor?authuser=0" class="author-link"
+                        target="_blank">Soomok Lee</a>
+                    <em><strong style="color: #4a4a4a">Affiliations:</strong></em>
+                    <a class="author-link" target="_blank">Ajou University, </a>
+                    <a class="author-link" target="_blank">Korea University</a>
+                </p>
+                <div class="button-container">
+                    <a href="https://arxiv.org/abs/2503.06179" class="button paper-link" target="_blank">
+                        <span class="icon is-small">
+                            <i class="ai ai-arxiv"></i>
+                        </span>
+                        ArXiv
+                    </a>
+                    <a href="https://github.com/kalelpark/ForestSplats" class="button" target="_blank">
+                        <span class="icon is-small">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code</span>
+                    </a>
+                </div>
+            </div>
+            <div class="header-image">
+                <img src="static/img/cover_test.png" alt="Teaser Image" class="teaser-image"
+                    style="width: 1000%; height: 1000%;">
+                <figcaption id="cover-img"><strong>Generated by AI</strong></figcaption>
+            </div>
+        </div>
+    </div>
+    <d-article>
+        <div class="nav-bar" id="nav-bar">
+            <!-- TOP -->
+            <a class="nav-link" href="#top" style="opacity: 0.7">
+                <div style="margin: 8px 0px; text-align: center">
+                    <span style="font-size: 30px;">&#128285;</span>
+                </div>
+            </a>
+            <hr style="display: block; margin: auto;">
+            <!-- finding -->
+            <div id="nav-bar-finding">
+                <a class="nav-link" href="#fingding">
+                    <img class="forestsplats-tag" src="static/img/tags/abstract.png">
+                </a>
+
+                <a class="nav-link" href="#fingding"><img src="static/img/icons/finding.png" title="finding"></a>
+            </div>
+            <hr style="display: block; margin: auto;">
+            <!-- video -->
+            <div class="video-color">
+                <a class="nav-link" href="#video">
+                    <img class="forestsplats-tag" src="static/img/tags/video.png">
+                </a>
+
+                <a class="nav-link" href="#video">
+                    <img class="forestsplats-tag" src="static/img/icons/video.png">
+                </a>
+            </div>
+            <hr style="display: block; margin: auto;">
+            <!-- image -->
+            <div class="image-color">
+                <a class="nav-link" href="#image">
+                    <img class="forestsplats-tag" src="static/img/tags/image.png">
+                </a>
+                <a class="nav-link" href="#image"><img src="static/img/icons/image.png">
+                </a>
+            </div>
+            <hr style="display: block; margin: auto;">
+            <div class="interaction-color">
+                <a class="nav-link" href="#interaction">
+                    <img class="forestsplats-tag" src="static/img/tags/interaction.png">
+                </a>
+                <a class="nav-link" href="#interaction"><img src="static/img/icons/interaction.png">
+                </a>
+            </div>
+            <hr style="display: block; margin: auto;">
+            <!-- evaluation -->
+            <div id="nav-bar-evaluation">
+                <a class="nav-link" href="#evaluation">
+                    <img class="forestsplats-tag" src="static/img/tags/evaluation.png">
+                </a>
+
+                <a class="nav-link" href="#evaluation"><img src="static/img/icons/evaluation.png"
+                        title="evaluation"></a>
+            </div>
+            <hr style="display: block; margin: auto;">
+            <!-- conclusion -->
+            <div id="nav-bar-conclusion">
+                <a class="nav-link" href="#conclusion">
+                    <img class="forestsplats-tag" src="static/img/tags/conclusion.png">
+                </a>
+                <a class="nav-link" href="#conclusion"><img src="static/img/icons/conclusion.png"
+                        title="forestsplats conclusion"></a>
+            </div>
+            <div id="nav-bar-conclusion">
+            </div>
+        </div>
+
+        <h2 class="text" style="margin-top: -20px;">Overview</h2>
+        <div id="main-image">
+            <img src="static/img/Fig1.png" alt="" style="z-index: 8000" data-zoomable>
+            <br>
+            <figcaption style="margin-left: -50px; margin-right: -50px;">Given unconstrained images as input,
+                ForestSplats effectively removes transient elements from 2D scenes and achieves
+                fast rendering speed while preserving high-quality rendering. Our method decomposes the scene into the
+                deformable transient field and the static field to disentangle static and transient elements without a
+                Vision Foundation Model (VFM). Our method shows high-quality novel view synthesis from unconstrained
+                image collections, effectively decoupling transient
+                elements.</figcaption>
+            <br>
+            <video width="100%" src="./static/video/main.mp4" controls autoplay loop playsinline></video>
+
+        </div>
+        <div id="fingding">
+            <div class="l-screen grey-overlay"></div>
+            <h2 class="text"><img src="static/img/icons/finding.png" width="50px"> Abstract</h2>
+            <p class="text abstract" style="margin-top: 10px;">
+                Recently, 3D Gaussian Splatting (3DGS) has emerged showing real-time rendering speeds and high-quality
+                results in static scenes. Although 3DGS show effective in static scenes, their performance significantly
+                degrades in the real-world environments due to transient objects, lighting variations, and large levels
+                of occlusion. To tackle this, existing methods estimate occluders or transient elements by leveraging
+                pre-trained models or integrating additional transient field pipelines. However, these methods still
+                suffer from two defects: 1) Utilizing semantic features from Vision Foundation model (VFM) cause
+                additional computational cost or during optimization. 2) Transient field struggles to define clear
+                boundaries for occluders due to lack of explicit transient modeling. To address these problem, we
+                propose
+                <b>ForestSplats</b>, an novel approach that leverages deformable transient field and hybrid masking
+                strategy to effectively decompose static scenes from transient distractors. We designed the transient
+                field to be deformable, capturing per-view transient elements. Furthermore, we introduce a hybrid
+                masking
+                strategy that refines the boundaries of occluders by leveraging photometric error maps and percentage of
+                outlier. Additionally, we propose an uncertainty-aware densification to prevent unnecessary Gaussians
+                from blurring the boundaries of occluders. Through extensive experiments across several benchmark
+                datasets,
+                we demonstrate ForestSplat not only outperforms state-of-the-art reconstruction quality, but also show
+                efficiency for distractor-free novel view synthesis.
+            </p>
+        </div>
+        <style>
+            .content-block {
+                margin-top: -70px;
+            }
+        </style>
+        </div>
+        <div id="video">
+            <h2 class="text"><img src="static/img/icons/video.png" width="50px"> Video</h2>
+            <div class="l-screen grey-overlay"></div>
+            <p class="text">
+                We visualize ForestSplats on the Photo Tourism and NeRF On-the-go datasets. Our method produces
+                high-quality 3D
+                renderings and distractor-free novel view synthesis results.
+            </p>
+            <h3 class="text" style="margin-top: -40px;"><br>Phototourism</h3>
+            <div class="container-fluid">
+                <div class="row py-3 align-item-center">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 text-center h-100">
+                        <div class="gallery-container">
+                            <div id="gallery2" class="gallery">
+                                <div class="gallery-items" style="margin: 0 20px 0 0;">
+                                    <video src="./static/video/PhotoTourism/braemenberug.mp4" controls autoplay muted
+                                        loop playsinline></video>
+                                    <p>braemenberug gate</p>
+                                </div>
+
+                                <div class="gallery-items">
+                                    <video src="./static/video/PhotoTourism/Sacer-coeur.mp4" controls autoplay muted
+                                        loop playsinline></video>
+                                    <p>Sacer Coeur</p>
+                                </div>
+                                <div class="gallery-items" style="margin: 0 0 0 20px;">
+                                    <video src="./static/video/PhotoTourism/Trevi-Fountain.mp4" controls autoplay muted
+                                        loop playsinline></video>
+                                    <p>Trevi Fountain</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <h3 class="text" style="margin-top: -60px;"><br>NeRF On-the-go</h3>
+            <div class="container-fluid">
+                <div class="row py-3 align-item-center">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 text-center h-100">
+                        <div class="gallery-container">
+                            <span class="arrow arrow-left" onclick="scrollGallery('gallery1', -300)">&#10094;</span>
+                            <div id="gallery1" class="gallery">
+
+                                <div class="gallery-item">
+                                    <video src="./static/video/Onthego/Corner.mp4" controls autoplay muted loop
+                                        playsinline></video>
+                                    <p>Corner</p>
+                                </div>
+
+                                <div class="gallery-item">
+                                    <video src="./static/video/Onthego/Fountain.mp4" controls autoplay muted loop
+                                        playsinline></video>
+                                    <p>Fountain</p>
+                                </div>
+
+                                <div class="gallery-item">
+                                    <video src="./static/video/Onthego/Mountain.mp4" controls autoplay muted loop
+                                        playsinline></video>
+                                    <p>Mountain</p>
+                                </div>
+
+                                <div class="gallery-item">
+                                    <video src="./static/video/Onthego/Patio-high.mp4" controls autoplay muted loop
+                                        playsinline></video>
+                                    <p>Patio-high</p>
+                                </div>
+
+                                <div class="gallery-item">
+                                    <video src="./static/video/Onthego/Patio.mp4" controls autoplay muted loop
+                                        playsinline></video>
+                                    <p>Patio</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <video src="./static/video/Onthego/Spot.mp4" controls autoplay muted loop
+                                        playsinline></video>
+                                    <p>Spot</p>
+                                </div>
+                            </div>
+                            <span class="arrow arrow-right" onclick="scrollGallery('gallery1', 300)">&#10095;</span>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            let index = 0;
+            function moveSlide(step) {
+                const slides = document.querySelector('.slides');
+                const totalSlides = document.querySelectorAll('.slide').length;
+                index = (index + step + totalSlides) % totalSlides;
+                slides.style.transform = `translateX(${-index * 100}%)`;
+            }
+        </script>
+
+        <div id="image">
+            <h2 class="text"><img src="static/img/icons/image.png" width="50px"> Qualitative results</h2>
+            <div class="l-screen grey-overlay"></div>
+            <p class="text">
+                We provide qualitative results on the Photo Tourism and NeRF On-the-Go datasets. Our method addresses
+                occluders in the scene using superpixel-aware masking and a multi-stage training strategy.
+            </p>
+            <img src="./static/img/fig/fig4.png" alt="" style="margin-left: -140px; width: 150%;">
+            <img src="./static/img/fig/fig5.png" alt="" style="margin-left: -140px; width: 150%;">
+            <br><br><br>
+        </div>
+
+        <div id="interaction">
+            <h2 class="text"><img src="static/img/icons/interaction.png" width="50px"> Interaction</h2>
+            <div class="l-screen grey-overlay"></div>
+            <p class="text">
+                We provide novel view synthesis for static and transient fields on the NeRF On-the-go and
+                Phototourism datasets.
+            </p>
+            <div class="twenty-grid">
+                <div class="twentytwenty-container">
+                    <img src="./static/img/CompositionSet/Bradenberug/GT.png" alt="GT">
+                    <img src="./static/img/CompositionSet/Bradenberug/Composition.png" alt="Composition">
+                    <img src="./static/img/CompositionSet/Bradenberug/Static.png" alt="Static">
+                    <img src="./static/img/CompositionSet/Bradenberug/Transient.png" alt="Transient">
+                </div>
+                <div class="twentytwenty-container">
+                    <img src="./static/img/CompositionSet/Corner/GT.png" alt="GT">
+                    <img src="./static/img/CompositionSet/Corner/Composition.png" alt="Composition">
+                    <img src="./static/img/CompositionSet/Corner/Static.png" alt="Static">
+                    <img src="./static/img/CompositionSet/Corner/Transient.png" alt="Transient">
+                </div>
+                <div class="twentytwenty-container">
+                    <img src="./static/img/CompositionSet/Patio/GT.png" alt="GT">
+                    <img src="./static/img/CompositionSet/Patio/Composition.png" alt="Composition">
+                    <img src="./static/img/CompositionSet/Patio/Static.png" alt="Static">
+                    <img src="./static/img/CompositionSet/Patio/Transient.png" alt="Transient">
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const slidesContainer = document.querySelector('.img_siwon_slides');
+                const slides = document.querySelectorAll('.img_siwon_slide');
+                const prevBtn = document.querySelector('.img_siwon_prev');
+                const nextBtn = document.querySelector('.img_siwon_next');
+
+                if (!prevBtn || !nextBtn) {
+                    console.error("버튼 요소를 찾을 수 없습니다.");
+                    return;
+                }
+
+                let currentIndex = 0;
+                const totalSlides = slides.length;
+
+                function showSlide(index) {
+                    if (index < 0) {
+                        currentIndex = totalSlides - 1;
+                    } else if (index >= totalSlides) {
+                        currentIndex = 0;
+                    } else {
+                        currentIndex = index;
+                    }
+                    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    console.log("Prev 버튼 클릭");
+                    showSlide(currentIndex - 1);
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    console.log("Next 버튼 클릭");
+                    showSlide(currentIndex + 1);
+                });
+            })
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const tabslidesContainer = document.querySelector('.tab_siwon_slides');
+                const tabslides = document.querySelectorAll('.tab_siwon_slide');
+                const tabprevBtn = document.querySelector('.tab_siwon_prev');
+                const tabnextBtn = document.querySelector('.tab_siwon_next');
+
+                if (!tabprevBtn || !tabnextBtn) {
+                    console.error("버튼 요소를 찾을 수 없습니다.");
+                    return;
+                }
+
+                let tabcurrentIndex = 0;
+                const tabtotalSlides = tabslides.length;
+
+                function tabshowSlide(index) {
+                    if (index < 0) {
+                        tabcurrentIndex = tabtotalSlides - 1;
+                    } else if (index >= tabtotalSlides) {
+                        tabcurrentIndex = 0;
+                    } else {
+                        tabcurrentIndex = index;
+                    }
+                    tabslidesContainer.style.transform = `translateX(-${tabcurrentIndex * 100}%)`;
+                }
+
+                tabprevBtn.addEventListener('click', () => {
+                    console.log("Prev 버튼 클릭");
+                    tabshowSlide(tabcurrentIndex - 1);
+                });
+
+                tabnextBtn.addEventListener('click', () => {
+                    console.log("Next 버튼 클릭");
+                    tabshowSlide(tabcurrentIndex + 1);
+                });
+            })
+        </script>
+
+        <!-- Evaluation -->
+        <div id="evaluation" style="position: relative; margin-top: 20px; margin-bottom: 40px;">
+            <h2 class="text" style="margin-top:0px; margin-bottom:10px"><img src="static/img/icons/evaluation.png"
+                    width="50px"> Evaluation</h2>
+            <!-- Figures -->
+            <div class="img_siwon_slider">
+                <div class="img_siwon_slides">
+                    <div class="img_siwon_slide">
+                        <img src="./static/img/fig/fig8.png" alt="Image 2">
+                        <p class="caption">Ablation of the novel view synthesis for static and transient fields on the
+                            NeRF On-the-go and Photo Tourism datasets.</p>
+                    </div>
+                    <div class="img_siwon_slide">
+                        <img src="./static/img/fig/fig7.png" alt="Image 1">
+                        <p class="caption">Ablation of the number of transient Gaussians and the multi-stage training
+                            scheme. (a) Evaluation of results across different numbers of transient Gaussians. (b)
+                            Comparision of training PSNR across with and without multi-stage training scheme.</p>
+                    </div>
+                    <div class="img_siwon_slide">
+                        <img src="./static/img/fig/fig9.png" alt="Image 3">
+                        <p class="caption">Ablation of the number of superpixels on the Patio-high scene. N denotes the
+                            number of superpixels.</p>
+                    </div>
+                    <div class="img_siwon_slide">
+                        <img src="./static/img/fig/fig10.png" alt="Image 3">
+                        <p class="caption">Ablation of the transient Mask. (a) Comparison of transient mask methods. (b)
+                            Effect of the superpixel-aware mask.</p>
+                    </div>
+                    <div class="img_siwon_slide">
+                        <img src="./static/img/fig/fig11.png" alt="Image 3">
+                        <p class="caption">Ablation of the uncertainty-aware densification (UAD). We visualize centroids
+                            of static Gaussians with and without UAD.</p>
+                    </div>
+                    <div class="img_siwon_slide">
+                        <img src="./static/img/fig/fig12.png" alt="Image 3">
+                        <p class="caption">Ablation study of the qualitative results for each component in ForestSplats.
+                            More details are provided in the supplements.</p>
+                    </div>
+                </div>
+                <button class="img_siwon_prev">
+                    < <button class="img_siwon_next">>
+                </button>
+            </div>
+            <!-- Tables -->
+            <div class="tab_siwon_slider">
+                <div class="tab_siwon_slides">
+                    <div class="tab_siwon_slide">
+                        <img src="./static/img/fig/table3.png" alt="Image 1">
+                        <p class="caption">Ablation of computational efficiency. We report CPU Memory usage (MB) for
+                            initial the number of transient Gaussians.</p>
+                    </div>
+                    <div class="tab_siwon_slide">
+                        <img src="./static/img/fig/table4.png" alt="Image 2">
+                        <p class="caption">Ablation of the with and without Deformable for effect of transient fields on
+                            the Brandenburg gate and corner scenes.</p>
+                    </div>
+                    <div class="tab_siwon_slide">
+                        <img src="./static/img/fig/table5.png" alt="Image 3">
+                        <p class="caption">Ablation of the effectiveness of each component in ForestSplats. We report
+                            all quantitative results on the Sacre Coeur scene.</p>
+                    </div>
+                </div>
+                <button class="tab_siwon_prev">
+                    < <button class="tab_siwon_next">>
+                </button>
+            </div>
+        </div>
+        <!-- Conclusion -->
+        <div id="conclusion" style="position: relative; margin-top: -50px; margin-bottom: 40px;">
+            <h2 class="text" style="margin-top:0px; margin-bottom:10px"><img src="static/img/icons/conclusion.png"
+                    width="50px">
+                Conclusion</h2>
+            <p class="text">
+                We introduce ForestSplats, a novel framework that leverages a deformable transient field and a
+                superpixel-aware mask to effectively remove distractors from static fields. Furthermore, we introduce
+                uncertainty-aware densi- fication to enhance rendering quality to avoid generate static gaus- sians on
+                the boundaries of distractors during optimization. Extensive experiments on several datasets demonstrate
+                that our method show competitive performance compared to existing methods without a pre-trained model
+                and excessive memory usage.
+
+            </p>
+        </div>
+        <p align="center">This website is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC
+                BY-SA 4.0</a> and is based on the <a href="https://opendatalab.github.io/LOKI/">LOKI</a>
+            website.</p>
+
+    </d-article>
+
+    <script src="./static/js/nav-bar.js"></script>
+    <script src="./static/css/jquery.event.move.js"></script>
+    <script src="./static/css/jquery.twentytwenty.js"></script>
+
+    <script>
+        $(window).on('load', function () {
+            $(".twentytwenty-container").twentytwenty({ default_offset_pct: 0.5 });
+        });
+    </script>
+
+</body>
+
+</html>
