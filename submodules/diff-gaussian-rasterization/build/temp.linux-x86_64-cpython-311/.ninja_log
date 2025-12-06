@@ -1,0 +1,23 @@
+# ninja log v5
+1	4055	1738563259666668665	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/forward.o	b0d1901b368d3f0c
+0	4225	1738563259834669322	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/backward.o	c177cd8abe62fac8
+1	10196	1738563265802692696	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/rasterizer_impl.o	a8c6db888f61aa35
+1	23771	1738563279366745937	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/ext.o	358c0742f5a1afca
+15	3899	1738563807388924395	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/forward.o	b0d1901b368d3f0c
+16	4288	1738574304259395056	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/backward.o	aff279de6490882b
+17	4329	1738574304299395206	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/forward.o	8b52c7a4b8668301
+17	10809	1738574310771419384	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/rasterizer_impl.o	fd34471e4e675ca0
+15	25088	1738574399083749693	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/ext.o	548f10d9c56a098
+17	4141	1738576348154700790	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/forward.o	8b52c7a4b8668301
+15	56993	1738576814784324398	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/rasterize_points.o	a37d7784fa55e41d
+14	59358	1738579795466883030	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/rasterize_points.o	a37d7784fa55e41d
+16	23366	1738580398600946740	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/ext.o	548f10d9c56a098
+15	59767	1738581034679147366	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/rasterize_points.o	a37d7784fa55e41d
+13	24969	1738581560420967196	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/ext.o	548f10d9c56a098
+13	24153	1738581619829163433	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/ext.o	548f10d9c56a098
+14	59280	1738581741869567237	/home/mlmlab07/wongi/xplore/XploreSplat/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/rasterize_points.o	a37d7784fa55e41d
+0	4196	1738595657904782269	/home/mlmlab07/wongi/xplore/XploreSplatWild/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/forward.o	802fe3b59a6ee923
+0	4377	1738595658088782914	/home/mlmlab07/wongi/xplore/XploreSplatWild/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/backward.o	aa28383259f78bee
+1	10469	1738595664176804239	/home/mlmlab07/wongi/xplore/XploreSplatWild/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/cuda_rasterizer/rasterizer_impl.o	a2f138c9db11d530
+1	24316	1738595678016852717	/home/mlmlab07/wongi/xplore/XploreSplatWild/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/ext.o	7255b2544abe54c2
+1	57027	1738595710732967307	/home/mlmlab07/wongi/xplore/XploreSplatWild/submodules/diff-gaussian-rasterization/build/temp.linux-x86_64-cpython-311/rasterize_points.o	29dca3c1cf60c831
