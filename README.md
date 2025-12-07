@@ -22,7 +22,7 @@ To understand the our superpixel-based masking strategy more easily, please refe
 > If you have any questions or issues during the reimplementation, please feel free to reach out.
 
 ### Apperance Variation
-For Appearance Variation, modify the line 535 of [mask_module.py](./ForestSplats/evaluation.py).
+For Appearance Variation, modify the line 535 of [evaluation.py](./ForestSplats/evaluation.py).
 
 ### Acknowledgements
 We thank the following projects for enabling and motivating ForestSplats:
