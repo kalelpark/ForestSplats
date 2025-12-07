@@ -2,7 +2,7 @@
 
 [WACV'26] ForestSplats: Deformable transient field for Gaussian Splatting in the Wild [[ArXiv](https://arxiv.org/abs/2503.06179)]   [[Project Page](https://kalelpark.github.io/ForestSplats/)]
 <div align="center">
-<img width="525" height="267" alt="ForestSplat_Poster_Size" src="assets/Poster.png" />
+<img width="525" height="267" alt="ForestSplat_Poster_Size" src="assets/updated_poster.png" />
 </div>
 
 ### Cloning the Repository
