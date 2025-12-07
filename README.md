@@ -17,7 +17,7 @@ Follow the instructions in the [WildGaussians](https://github.com/jkulhanek/wild
 ```bash
 python scripts.py
 ```
-To understand the our superpixel-based masking strategy more easily, please refer to [mask_module.py](./mask_module.py) \
+To understand the our superpixel-based masking strategy more easily, please refer to [mask_module.py](./mask_module.py). For the uncertainty-aware density control, please also refer to [submodules](./submodules).
 > Note that the implementation includes only the masking and densification strategies. \
 > If you have any questions or issues during the reimplementation, please feel free to reach out.
 
